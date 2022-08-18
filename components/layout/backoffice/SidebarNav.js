@@ -12,7 +12,8 @@ import {
          faHandshake, 
          faChessBoard, 
          faCalendar, 
-         faShirt 
+         faShirt,
+         faEnvelope
       }                    from '@fortawesome/free-solid-svg-icons';
 
 export default function SidebarNav(){
@@ -70,15 +71,20 @@ export default function SidebarNav(){
                      <a className="px-5"><FontAwesomeIcon icon={faShirt} className="px-5" />Produits</a><span className='text-xs'>(v2)</span>
                   </li>
                </Link>
-               </ul>
-               <Link href="/" passHref>
-                  <div className="p-3 text-center bottom-8 absolute w-full bg-peachred hover:bg-peachred-darker transition">
-                     <a className="text-xs text-white">Revenir au site</a>
-                  </div>
+               <Link href="#" passHref>
+                  <li className={`text-gray-500 hover:bg-zinc-800 p-4 cursor-pointer font-light ${router.pathname == '/admin/mailing' ? "nav-active" : ""}`}>
+                     <a className="px-5"><FontAwesomeIcon icon={faEnvelope} className="px-5" />Mailing</a><span className='text-xs'>(v2)</span>
+                  </li>
                </Link>
-               <div className="text-center bottom-0 absolute w-full border-t border-zinc-800">
-                  <p className="py-2 text-xs text-zinc-600">Alpha v0.1</p>
+            </ul>
+            <Link href="/" passHref>
+               <div className="p-3 text-center bottom-8 absolute w-full bg-peachred hover:bg-peachred-darker transition">
+                  <a className="text-xs text-white">Revenir au site</a>
                </div>
+            </Link>
+            <div className="text-center bottom-0 absolute w-full border-t border-zinc-800">
+               <p className="py-2 text-xs text-zinc-600">Alpha v0.1</p>
+            </div>
          </div>
       </aside>
     )
