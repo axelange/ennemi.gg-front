@@ -5,10 +5,28 @@ import { useRouter } from 'next/router';
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 export default function login() {
     const router = useRouter();
-    
+
+    const handleLoginSubmit = async (event) => {
+        event.preventDefault()
+
+        const result = await axios({
+            method: 'post',
+            url: 'http://localhost:3001/api/v1/admin/auth/login',
+            data: {
+                email: event.currentTarget.email.value,
+                password: event.currentTarget.password.value
+            }
+        })
+
+        console.log(result.data.token)
+
+        document.cookie = `token=${result.data.token}; SameSite=Strict; Secure`
+    }
+
     return (
         <section className="bg-zinc-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

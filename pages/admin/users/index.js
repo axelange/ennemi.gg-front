@@ -7,9 +7,17 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Axios } from '/lib/utils'
 import axios from 'axios'
 
-export async function getServerSideProps(req, res) {
+export async function getServerSideProps(context) {
+    console.log(context.req.cookies.token)
+
     const domain = process.env.BACK_URL
-    const { data } = await axios(`http://${domain}:3001/api/v1/admin/users`)
+    const { data } = await axios({
+        method: 'get',
+        url: `http://${domain}:3001/api/v1/admin/users`,
+        headers: {
+            authorization: context.req.cookies.token
+        }
+    })
     console.log()
     return ({
         props: {
