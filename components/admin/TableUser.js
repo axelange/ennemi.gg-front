@@ -1,10 +1,25 @@
-import react from 'react';
-import Link from 'next/link';
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router';
+import { removeDataFrom, modifyDataFrom } from '/lib/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faUserPen } from '@fortawesome/free-solid-svg-icons';
 
 export default function TableUser({columns, data}){
-    console.log(columns)
+
+    const router = useRouter();
+
+    const editUser = (id) => {
+        onOpenModal();
+
+    }
+
+    const deleteUser = (id) => {
+        removeDataFrom(`admin/users/${id}`)
+        router.push('/admin/users')
+    }
+
+    
+
     return (
         <div class="py-4 w-full">
             <table className="table-auto w-full text-left">
@@ -24,7 +39,7 @@ export default function TableUser({columns, data}){
                                     <td key={user.id} className="p-2">{user.id}</td>
                                     <td className="p-2">{user.name}</td>
                                     <td className="p-2">{user.email}</td>
-                                    <td className="p-2"><FontAwesomeIcon icon={faUserPen} className="hover:text-peachred" /><FontAwesomeIcon icon={faTrash} className="px-5 hover:text-peachred"/> </td>
+                                    <td className="p-2"><FontAwesomeIcon icon={faUserPen} className="hover:text-peachred" onClick={() => editUser(user.id)} /><FontAwesomeIcon icon={faTrash} className="px-5 hover:text-peachred" onClick={() => deleteUser(user.id)}/> </td>
                                 </tr>
                             ))
                         }
